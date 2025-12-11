@@ -64,41 +64,43 @@ It demonstrates end-to-end automation, API integrations, lightweight data proces
 git clone https://github.com/your-username/n8n-ai-news-summarizer.git
 ```
 2. Set up n8n
-* Install n8n locally or use n8n Cloud.
-* Follow the official guide: n8n Installation Guide
+- Install n8n locally or use n8n Cloud.
+- Follow the official guide: [n8n Installation Guide](https://docs.n8n.io/hosting/installation/)
 
-4. Import Workflow(s)
-* Use n8n’s workflow import feature to add the news automation workflows from the /workflows/ folder.
-* Workflows include:
-
-- News API fetch (India / World / Tech)
-- AI summarization flow
-- WhatsApp message delivery (Twilio)
+3. Import Workflow(s)
+- Use n8n’s workflow import feature to add the news automation workflows from the `/workflows/` folder.
+- Workflows include:
+  - **News API fetch** (India / World / Tech)
+  - **AI summarization flow**
+  - **WhatsApp message delivery** (Twilio)
 
 4. Configure Credentials
-* Set up credentials and data source connections within n8n.
-* Add the following credentials inside n8n:
-
-- News API Key
-- AI Model API Key (OpenAI / Gemini / etc.)
-- Twilio WhatsApp Credentials (Account SID, Auth Token, WhatsApp From + To numbers)
+- Set up credentials and data source connections within n8n.
+- Add the following credentials inside n8n:
+  - **News API Key**
+  - **AI Model API Key** (OpenAI / Gemini / etc.)
+  - **Twilio WhatsApp Credentials**
+    - Account SID  
+    - Auth Token  
+    - WhatsApp From + To numbers  
 
 5. Customize Templates
-* Modify:
-- News categories or keywords
-- AI summary prompt
-- WhatsApp message format
+Modify the workflow based on your needs:
+- News categories or keywords  
+- AI summary prompt  
+- WhatsApp message format  
 
-These can be edited inside the workflow Function and AI nodes.
+These can be edited inside the **Function** and **AI** nodes.
 
 6. Run the Workflow
-* Trigger manually or create a scheduled automation.
+- Trigger manually or create a scheduled automation.
 
-OR
+**OR**
 
-* Set a Cron schedule to automatically receive daily summarized news on WhatsApp.
+- Set a **Cron schedule** to automatically receive daily summarized news on WhatsApp.
 
 ---
+
 
 ### Example prompt (for summarization)
 
@@ -127,5 +129,3 @@ Project owner: Purvi Jain
 LinkedIn: [https://www.linkedin.com/in/purvi-jain-315683326](https://www.linkedin.com/in/purvi-jain-315683326)
 
 ---
-
-*Generated README — adapt the API names and config examples to the exact services you used.*
