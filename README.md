@@ -6,7 +6,8 @@
 
 ## Workflow
 
-![n8n Workflow](<img width="1477" height="343" alt="Image" src="https://github.com/user-attachments/assets/c919d3f1-5f66-4ec0-b1d6-9d86e9aeb9a7" />)
+![n8n Workflow]
+<img width="1477" height="343" alt="Image" src="https://github.com/user-attachments/assets/c919d3f1-5f66-4ec0-b1d6-9d86e9aeb9a7" />
 
 ## Project Overview
 
