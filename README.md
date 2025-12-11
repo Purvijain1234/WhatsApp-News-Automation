@@ -48,31 +48,73 @@ It demonstrates end-to-end automation, API integrations, lightweight data proces
 
 ---
 
-## Setup & Installation
-
-### Prerequisites
+## Prerequisites
 
 * n8n (cloud or self-hosted)
 * Twilio account with WhatsApp sandbox or approved WhatsApp sender
 * API key(s) for chosen news provider(s)
 * AI model API key or access (OpenAI, Google, Ollama, etc.)
 
+---
+
+## 🧑‍💻 Getting Started
+
+1. Clone the repository
+```bash
+git clone https://github.com/your-username/n8n-ai-news-summarizer.git
+```
+2. Set up n8n
+Install n8n locally or use n8n Cloud.
+Follow the official guide: n8n Installation Guide
+
+3. Import Workflow(s)
+Use n8n’s workflow import feature to add the news automation workflows from the /workflows/ folder.
+
+Workflows include:
+
+News API fetch (India / World / Tech)
+
+AI summarization flow
+
+WhatsApp message delivery (Twilio)
+
+4. Configure Credentials
+Set up credentials and data source connections within n8n.
+Add the following credentials inside n8n:
+
+News API Key
+
+AI Model API Key (OpenAI / Gemini / etc.)
+
+Twilio WhatsApp Credentials
+(Account SID, Auth Token, WhatsApp From + To numbers)
+
+5. Customize Templates
+Modify:
+
+News categories or keywords
+
+AI summary prompt
+
+WhatsApp message format
+
+These can be edited inside the workflow Function and AI nodes.
+
+6. Run the Workflow
+Trigger manually or create a scheduled automation.
+
+OR
+
+Set a Cron schedule to automatically receive daily summarized news on WhatsApp.
+
+---
+
 ### Example prompt (for summarization)
 
 ```
 You are an assistant that writes a concise 5-7 sentence summary of the following news items. Keep it neutral, accurate, and include the most important facts and one-sentence call-to-action to read more.
 
-[INSERT COMBINED ARTICLES HERE]
 ```
-
----
-
-## How to Run (Quick)
-
-1. Import the provided n8n workflow JSON into your n8n instance.
-2. Add credentials for News API, AI provider, and Twilio in n8n Credentials.
-3. Configure schedule on the Cron trigger.
-4. Test-run the workflow and check the Twilio message delivery.
 
 ---
 
