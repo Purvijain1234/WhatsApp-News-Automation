@@ -1,0 +1,227 @@
+{
+  "name": "Whatsapp News",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ea7543b6-097d-477c-a1fb-f86754ef5963",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/top-headlines?country=in&pageSize=5&apiKey=cccce35ac2d04584bb8637d991b0afb2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7a96a99c-1e25-4c78-bd08-ecca4357fc50",
+      "name": "India News"
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/top-headlines?language=en&pageSize=5&apiKey=cccce35ac2d04584bb8637d991b0afb2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "080e2049-d097-47bb-b272-82b043c31d31",
+      "name": "World News"
+    },
+    {
+      "parameters": {
+        "url": "https://newsapi.org/v2/top-headlines?category=technology&language=en&pageSize=5&apiKey=cccce35ac2d04584bb8637d991b0afb2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        624,
+        0
+      ],
+      "id": "e0bdaaa7-63b6-4b5d-87b1-65ccd43bd75d",
+      "name": "Tech News"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get articles from all 3 news nodes\nconst india = $items(\"India News\")[0].json.articles || [];\nconst world = $items(\"World News\")[0].json.articles || [];\nconst tech = $items(\"Tech News\")[0].json.articles || [];\n\n// Combine all articles\nconst all = [...india, ...world, ...tech];\n\n// Clean the data\nconst cleaned = all.map(a => ({\n  title: a.title,\n  description: a.description,\n  url: a.url\n}));\n\n// Return each article as separate item\nreturn cleaned.map(c => ({ json: c }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        0
+      ],
+      "id": "46e6d58e-3f2d-49f0-8e91-296842cebd69",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "+919250555614",
+        "toWhatsapp": true,
+        "message": "={{$json['output']}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        0
+      ],
+      "id": "cd4e2594-5088-4a1e-a0f9-9453e7dd40e5",
+      "name": "Send an SMS/MMS/WhatsApp message",
+      "credentials": {
+        "twilioApi": {
+          "id": "Z2dfT5TrtXofmwia",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a news summarization assistant. Summarize all the news articles into a WhatsApp-friendly daily news message.\n\nRules:\n- Give 1 short headline for each article (max 8 words)\n- Give 1 simple summary sentence for each (max 20 words)\n- Add emojis to make it friendly and readable\n- Do NOT include URLs\n- End with: \"Have a great day!\"\n\nArticles:\n{{$json}}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "e0e89084-b7f1-490d-b8c9-acc20625ba6a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        944,
+        192
+      ],
+      "id": "a85cb255-96b3-4a85-aec3-c422b7c13bc2",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sROMuW0a0kXaR4JE",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "India News",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "India News": {
+      "main": [
+        [
+          {
+            "node": "World News",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "World News": {
+      "main": [
+        [
+          {
+            "node": "Tech News",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tech News": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send an SMS/MMS/WhatsApp message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "da3b154e-9f69-4d0e-8a81-53b026347d95",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "6295a2d2410ea7adabfe58e11c28175e30893a5e3d1ec73e94bced00380623b3"
+  },
+  "id": "AwkYj00OitLzS57P",
+  "tags": []
+}
