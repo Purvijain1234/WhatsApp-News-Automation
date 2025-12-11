@@ -60,23 +60,28 @@ It demonstrates end-to-end automation, API integrations, lightweight data proces
 
 ## 🧑‍💻 Getting Started
 
-1. Clone the repository
+### 1. Clone the repository
 ```bash
 git clone https://github.com/Purvijain1234/WhatsApp-News-Automation.git
 ```
+---
 
-2. Set up n8n
+### 2. Set up n8n
 - Install n8n locally or use n8n Cloud.
 - Follow the official guide: https://docs.n8n.io/hosting/installation/
 
-3. Import Workflow(s)
+---
+
+### 3. Import Workflow(s)
 - Use n8n’s workflow import feature to add the news automation workflows from the /workflows/ folder.
 - Workflows include:
   - News API fetch (India / World / Tech)
   - AI summarization flow
   - WhatsApp message delivery (Twilio)
 
-4. Configure Credentials
+---
+
+### 4. Configure Credentials
 - Set up credentials and data source connections within n8n.
 - Add the following credentials:
   - News API Key
@@ -86,14 +91,18 @@ git clone https://github.com/Purvijain1234/WhatsApp-News-Automation.git
     - Auth Token
     - WhatsApp From + To numbers
 
-5. Customize Templates
+---
+
+### 5. Customize Templates
 - Modify:
   - News categories or keywords
   - AI summary prompt
   - WhatsApp message format
 - These can be edited inside the Function and AI nodes.
 
-6. Run the Workflow
+---
+
+### 6. Run the Workflow
 - Trigger manually or create a scheduled automation.
 - OR set a Cron schedule to automatically receive daily summarized news on WhatsApp.
 
